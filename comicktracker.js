@@ -4,6 +4,8 @@ export default {
   icon: "https://comick.io/favicon.ico",
   author: "Sarah",
   description: "Track Comick.dev titles in Paperback, with hidden list support.",
+  contentType: "manga",
+  sourceLanguage: "en",
   async search(query) {
     const hiddenRes = await fetch("https://raw.githubusercontent.com/SugarRoses/ComickTracker/main/hidden.json");
     const hiddenTitles = await hiddenRes.json();
@@ -22,9 +24,9 @@ export default {
         return {
           title,
           cover: img,
-          link: `https://comick.io${link}`,
+          url: `https://comick.io${link}`,
         };
       })
-      .filter(item => !hiddenTitles.includes(item.title));
+      .filter(item => title && !hiddenTitles.includes(item.title));
   },
 };
