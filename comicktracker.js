@@ -3,7 +3,7 @@ export default {
   version: "1.0.0",
   icon: "https://comick.io/favicon.ico",
   author: "Sarah",
-  description: "Basic Comick.dev search for Paperback.",
+  description: "Search Comick.dev titles in Paperback.",
   contentType: "manga",
   sourceLanguage: "en",
   async search(query) {
@@ -13,7 +13,7 @@ export default {
     const doc = parser.parseFromString(html, "text/html");
     const items = [...doc.querySelectorAll(".group")];
 
-    return items.map(item => {
+    const results = items.map(item => {
       const title = item.querySelector(".title")?.textContent?.trim();
       const img = item.querySelector("img")?.src;
       const link = item.querySelector("a")?.href;
@@ -23,5 +23,7 @@ export default {
         url: `https://comick.io${link}`,
       };
     });
+
+    return results;
   },
 };
